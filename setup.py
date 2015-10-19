@@ -12,6 +12,7 @@ COMPUTE_NODE = True
 
 requires = [
     'mongoengine',
+    'paho-mqtt'
 ]
 
 

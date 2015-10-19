@@ -2,6 +2,6 @@
 
 ##Create by
   * Aran Khunaree
-  * Phuttawan Yangyenyong
+  * Phutthewan Yangyuenyong
   * Chareamchon Seakoo
 
