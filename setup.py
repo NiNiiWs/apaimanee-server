@@ -17,13 +17,12 @@ requires = [
 
 
 scripts = ['bin/apmn-server']
-setup(name='apaimanee',
+setup(name='apmn-server',
       version='0.0',
       description='',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
           "Programming Language :: Python :: 3",
-          "Framework :: nokkhum",
       ],
       author='Aran Khunaree',
       author_email='alunnice2537@gmail.com',
