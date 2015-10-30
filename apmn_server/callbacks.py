@@ -1,10 +1,13 @@
 import json
 
+def get_payload(msg):
+    return json.loads(msg.payload.decode('utf-8'))
+
 def rpc_request(client, controller, msg):
     print("rpc request")
-    payload = json.loads(msg.payload.decode('utf-8'))
+    payload = get_payload(msg)
     if payload['method'] == 'login':
-        controller.login(payload)
+        controller.user.login(payload)
 
 def hello(client, controller, msg):
     payload = json.loads(msg.payload.decode('utf-8'))
