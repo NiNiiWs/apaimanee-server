@@ -9,6 +9,9 @@ def rpc_request(client, controller, msg):
     if payload['method'] == 'login':
         controller.user.login(payload)
 
+    if payload['method'] == 'register':
+        controller.user.register(payload)
+
 def hello(client, controller, msg):
     payload = json.loads(msg.payload.decode('utf-8'))
     controller.hello(payload)

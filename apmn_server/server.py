@@ -4,6 +4,7 @@ import uuid
 
 from . import callbacks
 from . import controller
+from . import models
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
@@ -31,6 +32,13 @@ class ApaimaneeServer:
 
         self.controller = controller.ApaimaneeController(self.mqtt_client)
         self.mqtt_client.user_data_set(self.controller)
+
+        settings = {
+                'mongodb.db_name':'apmn',
+                'mongodb.host': 'localhost'
+                }
+
+        models.initial(settings)
 
     def reconnect(self):
         self.mqtt_client.connect("localhost", 1883, 60)
