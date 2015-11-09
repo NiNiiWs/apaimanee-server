@@ -1,17 +1,33 @@
 from .base import Manager
-
 from apmn_server import models
+
+import datetime
 
 class User(Manager):
     def login(self, payload):
         print('check login')
-        username = payload.get('username')
-        password = payload.get('password')
+        email = payload.get('email')
 
         response = payload
-        response.pop('password')
-        if password == 'password':
+
+        user = models.User.objects(email=email).first()
+
+        if user:
             response['loggedin'] = True
+            last_login = models.LastLogin(user=user)
+            last_login.save()
+
+            token = models.Token(user=user)
+            token.accessed_date = datetime.datetime.now()
+            token.expired_date = token.accessed_date + datetime.timedelta(days=1)
+            token.save()
+            token.reload()
+
+            response['token'] = str(token.id)
+
+
+        else:
+            response['loggedin'] = False
 
         return self.rpc_response(response, payload.get('client_id'))
 

@@ -13,7 +13,7 @@ class User(me.Document):
     last_name = me.StringField(max_length=100)
 
     status = me.StringField(max_length=100, required=True, default="active")
-#    roles = me.ListField(me.ReferenceField('Role'))
+#   roles = me.ListField(me.ReferenceField('Role'))
 
     registration_date = me.DateTimeField(
         required=True, default=datetime.datetime.now)
@@ -56,3 +56,12 @@ class Token(me.Document):
     expired_date = me.DateTimeField(required=True)
     ip_address = me.StringField(
         max_length=100, required=True, default='0.0.0.0')
+
+class LastLogin(me.Document):
+    meta = {'collection': 'lastlogin'}
+
+    user = me.ReferenceField('User', dbref=True)
+    loggedin_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
+    client_id = me.StringField()
+
