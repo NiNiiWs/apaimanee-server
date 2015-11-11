@@ -3,6 +3,7 @@ import json
 import uuid
 
 from . import callbacks
+from . import rpc_server
 from . import controller
 from . import models
 
@@ -33,6 +34,8 @@ class ApaimaneeServer:
         self.controller = controller.ApaimaneeController(self.mqtt_client)
         self.mqtt_client.user_data_set(self.controller)
 
+        self.rpc_server = rpc_server.RPCServer(self.controller, self.mqtt_client)
+
         settings = {
                 'mongodb.db_name':'apmn',
                 'mongodb.host': 'localhost'
@@ -45,7 +48,7 @@ class ApaimaneeServer:
         self.register_callback()
 
     def register_callback(self):
-        self.mqtt_client.message_callback_add('apaimanee/clients/request', callbacks.rpc_request)
+        self.mqtt_client.message_callback_add('apaimanee/clients/request', self.rpc_server.rpc_request)
         self.mqtt_client.message_callback_add('apaimanee/hello', callbacks.hello)
         self.mqtt_client.message_callback_add('apaimanee/status', callbacks.status)
 

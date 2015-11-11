@@ -4,11 +4,10 @@ from apmn_server import models
 import datetime
 
 class User(Manager):
-    def login(self, payload):
+    def login(self, email):
         print('check login')
-        email = payload.get('email')
 
-        response = payload
+        response = dict()
 
         user = models.User.objects(email=email).first()
 
@@ -29,27 +28,20 @@ class User(Manager):
         else:
             response['loggedin'] = False
 
-        return self.rpc_response(response, payload.get('client_id'))
+        return response
 
-    def register(self, payload):
-        print('check register')
-        username = payload.get('username')
-        password = payload.get('password')
-        email = payload.get('email')
-        first_name = payload.get('first_name')
-        last_name = payload.get('last_name')
+    def register(self, username, password, email, first_name, last_name):
         user = models.User(username=username,email=email, first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save()
         user.reload()
 
 
-        response = payload
+        response = dict()
         if hasattr(user, 'id'):
-            response['id'] = user.id
             response['registed'] = True
         else:
             response['registed'] = False
 
-        return self.rpc_response(response, payload.get('client_id'))
+        return response
 
