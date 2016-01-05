@@ -9,13 +9,9 @@ class Room(Manager):
         self.rooms = dict()
 
     def create_room(self, name_room):
-        print("xxxx")
         response = dict()
-        print("yyyy")
         room_id = str(uuid.uuid4())
-        print(room_id,"zzzzz")
         user_id = payload.get['user_id']
-        print(user_id,"WWWWW")
         response['room_id'] = room_id
         print(room_id)
         response['players'] = [payload['user_id']]
