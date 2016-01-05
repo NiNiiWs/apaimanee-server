@@ -8,35 +8,33 @@ class Room(Manager):
         super().__init__(mqtt_client)
         self.rooms = dict()
 
-    def create_room(self, name_room):
-        print("xxxx")
+    def create_room(self, request):
+        room_name = request.get('room_name')
         response = dict()
-        print("yyyy")
         room_id = str(uuid.uuid4())
-        print(room_id,"zzzzz")
-        user_id = payload.get['user_id']
-        print(user_id,"WWWWW")
+        user = self.get_user(request)
         response['room_id'] = room_id
+        response['players'] = [user]
+        self.rooms[room_id] = response
+
+        return response
+
+    def join_game(self, request):
+        print("Join Game")
+        room_id = request['args'].get('room_id', None)
         print(room_id)
-        response['players'] = [payload['user_id']]
-        self.rooms['room_id'] = response
-
-        return self.rpc_response(response, payload['client_id'])
-
-    def join_game(self, payload):
-        response = payload
-        room_id = payload.get('room_id', None)
-
+        response = dict()
         room = self.rooms.get(room_id, None)
-        print(room_id)
-        response = payload
+
         if room:
-            if len(response['players']) <= 10:
-                response['players'].append(payload['user_id'])
+            if len(room['players']) <= 10:
+                user = self.get_user(request)
+                if not user in room['players']:
+                    room['players'].append(user)
                 response['joined'] = True
             else:
                 response['joined'] = False
         else:
             response['joined'] = False
 
-        return self.rpc_response(response, payload['client_id'])
+        return response

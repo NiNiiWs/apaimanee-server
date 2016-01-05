@@ -4,8 +4,11 @@ from apmn_server import models
 import datetime
 
 class User(Manager):
-    def login(self, email):
+    def login(self, request):
         print('check login')
+        args = request.get('args')
+        email = args.get('email')
+
 
         response = dict()
 
@@ -30,8 +33,19 @@ class User(Manager):
 
         return response
 
-    def register(self, username, password, email, first_name, last_name):
-        user = models.User(username=username,email=email, first_name=first_name, last_name=last_name)
+    def register(self, request):
+        args = request.get('args')
+
+        username = args.get('username')
+        password = args.get('password')
+        email = args.get('email')
+        first_name = args.get('first_name')
+        last_name = args.get('last_name')
+
+        user = models.User(username=username,
+                email=email,
+                first_name=first_name,
+                last_name=last_name)
         user.set_password(password)
         user.save()
         user.reload()

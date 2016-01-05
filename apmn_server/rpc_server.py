@@ -2,6 +2,7 @@ import json
 import logging
 logger = logging.getLogger(__name__)
 
+from .managers import base
 
 class RPCServer:
     def __init__(self, controller, mqtt_client):
@@ -21,7 +22,7 @@ class RPCServer:
         return json.loads(msg.payload.decode('utf-8'))
 
     def publish(self, topic, msg, qos=0, retain=False):
-        msg_str = json.dumps(msg)
+        msg_str = json.dumps(msg, cls=base.ComplexEncoder)
         if topic is not None:
             self.mqtt_client.publish(topic, msg_str, qos, retain)
 
@@ -41,9 +42,10 @@ class RPCServer:
 
         method = self.rpc_methods.get(call_name, None)
         print('get method', method)
+
         if method is not None:
             try:
-                payload['responses'] = method(**payload['args'])
+                payload['responses'] = method(payload)
                 payload['status'] = 'success'
             except Exception as e:
                 logger.exception(e)
