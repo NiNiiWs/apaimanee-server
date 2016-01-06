@@ -49,6 +49,7 @@ class ApaimaneeServer:
 
     def register_callback(self):
         self.mqtt_client.message_callback_add('apaimanee/clients/request', self.rpc_server.rpc_request)
+        self.mqtt_client.message_callback_add('apaimanee/clients/+/rooms/+/update', self.controller.game_controller.on_game_message)
         self.mqtt_client.message_callback_add('apaimanee/hello', callbacks.hello)
         self.mqtt_client.message_callback_add('apaimanee/status', callbacks.status)
 
@@ -59,6 +60,7 @@ class ApaimaneeServer:
         except Exception as e:
             print(e)
         finally:
+            self.controller.stop()
             self.mqtt_client.disconnect()
 
 if __name__ == '__main__':

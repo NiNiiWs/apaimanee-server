@@ -1,11 +1,16 @@
 
+import time
+import threading
+import json
+
 class GameUnit:
     def __init__(self):
         self.damage = 0
         self.hp = 0
         self.armor = 0
         self.magic_resist = 0
-    def to_data_dict(self)
+
+    def to_data_dict(self):
         result = dict(damage=self.damage,
                 hp=self.hp)
         return result
@@ -81,16 +86,51 @@ class Animal(GameUnit):
         result = dict(position = self.position,
                 name = self.name,
                 hp_regen = self.hp_regen,
-                time_deaths  = self time_deaths
+                time_deaths  = self.time_deaths
                 )
 
         result.update(super().to_data_dict())
         return result
 
 
-class GameStatusController:
-    def __init__(self, mqtt_client):
+class GameStatusController(threading.Thread):
+    def __init__(self, mqtt_client, room):
+        super().__init__()
         self.mqtt_client = mqtt_client
+        self._room = room
+
+        self._running = True
+        self._sleep_time = 1
+
+    def on_game_message(self, client, userdata, msg):
+        game_msg = json.loads(msg.payload.decode('utf-8'))
+
+        print("got", msg)
+        if not 'room_id' in game_msg:
+            return
+
+        game = self._room.rooms.get(game_msg['room_id'], None)
+        if not game:
+            print("no game room")
+            return
+
+        method = game_msg['method']
+
+        print("got", game_msg)
+        if method == 'update_game_status':
+            # update game status here
+            response = dict(game=game.to_data_dict(), method='synchronize_game_status')
+            response_json = json.dumps(response)
+            self.mqtt_client.publish(self.game_topic_synchonize(client._client_id, game_msg['room_id']), response_json)
 
 
+    def game_topic_synchonize(self, client_id, room_id):
+        return 'apaimanee/clients/{}/rooms/{}/synchronize'.format(client_id, room_id)
+
+    def run(self):
+        while self._running:
+            time.sleep(self._sleep_time)
+
+    def stop(self):
+        self._running = False
 

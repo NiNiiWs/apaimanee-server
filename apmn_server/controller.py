@@ -1,26 +1,7 @@
 import json
-import threading
-import time
 
 from . import managers
-
-
-class ApaimaneeGameMonitor(threading.Thread):
-    def __init__(self, room):
-        super().__init__()
-        self._running = True
-        self._sleep_time = 1
-        self._room = room
-
-    def stop(self):
-        self._running = False
-
-    def run(self):
-        while self._running:
-            for r in self._room.rooms:
-                print("update r:", r)
-            time.sleep(self._sleep_time)
-            print('weak up')
+from . import game_controller
 
 
 class ApaimaneeController:
@@ -30,9 +11,11 @@ class ApaimaneeController:
         self.user = managers.User(self.mqtt_client)
         self.room = managers.Room(self.mqtt_client)
 
-        self.game_controller = ApaimaneeGameMonitor(self.room)
+        self.game_controller = game_controller.GameStatusController(self.mqtt_client, self.room)
         self.game_controller.start()
 
+    def stop(self):
+        self.game_controller.stop()
 
     def hello(self, payload):
         print('login first:', payload)
