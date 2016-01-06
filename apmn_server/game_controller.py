@@ -114,9 +114,8 @@ class GameStatusController(threading.Thread):
             return
 
         client_id = None
-        user = userdata.user.get_user(game_msg)
         for p in game.players:
-            if p.user == user:
+            if p.token == game_msg.get('token', None):
                 client_id = p.client_id
 
         if client_id is None:
