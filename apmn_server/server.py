@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqttclient
 import json
 import uuid
+import traceback
+import sys
 
 from . import callbacks
 from . import rpc_server
@@ -58,6 +60,7 @@ class ApaimaneeServer:
         try:
             self.mqtt_client.loop_forever()
         except Exception as e:
+            traceback.print_exc(file=sys.stdout)
             print(e)
         finally:
             self.controller.stop()

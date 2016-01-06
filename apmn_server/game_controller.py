@@ -105,7 +105,6 @@ class GameStatusController(threading.Thread):
     def on_game_message(self, client, userdata, msg):
         game_msg = json.loads(msg.payload.decode('utf-8'))
 
-        print("got", msg)
         if not 'room_id' in game_msg:
             return
 
@@ -114,14 +113,24 @@ class GameStatusController(threading.Thread):
             print("no game room")
             return
 
+        client_id = None
+        user = userdata.user.get_user(game_msg)
+        for p in game.players:
+            if p.user == user:
+                client_id = p.client_id
+
+        if client_id is None:
+            print("invalid token")
+            return
+
         method = game_msg['method']
 
-        print("got", game_msg)
         if method == 'update_game_status':
             # update game status here
+
             response = dict(game=game.to_data_dict(), method='synchronize_game_status')
             response_json = json.dumps(response)
-            self.mqtt_client.publish(self.game_topic_synchonize(client._client_id, game_msg['room_id']), response_json)
+            self.mqtt_client.publish(self.game_topic_synchonize(client_id, game_msg['room_id']), response_json)
 
 
     def game_topic_synchonize(self, client_id, room_id):
