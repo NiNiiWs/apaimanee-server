@@ -6,9 +6,10 @@ import json
 
 
 class Player:
-    def __init__(self, client_id, user):
+    def __init__(self, client_id, user, token):
         self.client_id = client_id
         self.user = user
+        self.token = token
 
 class ApaimaneeGame:
     def __init__(self, room_id, room_name):
@@ -43,7 +44,7 @@ class Room(Manager):
         user = self.get_user(request)
 
         game_status = ApaimaneeGame(room_id, room_name)
-        game_status.players.append(Player(request['client_id'], user))
+        game_status.players.append(Player(request['client_id'], user, request['token']))
 
         self.rooms[room_id] = game_status
 
@@ -61,7 +62,7 @@ class Room(Manager):
                 user = self.get_user(request)
                 for p in game.players:
                     if user != game.user:
-                        game.players.append(Player(request['client_id'], user))
+                        game.players.append(Player(request['client_id'], user, request['token']))
                         response['joined'] = True
                         response['room_id'] = room_id
             else:
