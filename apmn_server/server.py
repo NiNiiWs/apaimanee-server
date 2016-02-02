@@ -20,8 +20,7 @@ def on_connect(client, userdata, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    payload = json.loads(msg.payload.decode('utf-8'))
-    print(msg.topic+" "+json.dumps(payload))
+    print(msg.topic+" "+msg.payload.decode('utf-8'))
 
 class ApaimaneeServer:
     def __init__(self):
