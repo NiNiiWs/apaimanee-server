@@ -1,0 +1,74 @@
+
+
+{
+      	"describtion":"พระอภัยมณี: เป็นโอรสองค์โตของท้าวสุทัศน์และพระนางปทุมเกสร ท้าวสุทัศน์ได้ส่งไปศึกษาศิลปวิทยาและได้เลือกเรียนด้านวิชาเพลงปี่ ทำให้ท้าวสุทัศน์ไม่พอใจมาก จึงถูกขับไล่ออกจากเมืองพร้อมกับศรึสุวรรณ ระหว่างทางทั้งสองได้พบกับสามพราหมณ์ คือสานน วิเชียร และโมรา พระองค์จึงได้เป่าปี่ขึ้นเพื่ออวดวิชาที่ตนได้ร่ำเรียนมา ปรากฏว่าเพลงปี่ทำให้ศรีสุวรรณและสามพราหมณ์หลับใหลไม่ได้สติ และนางผีเสื้อสมุทรซึ่งอยู่ในบริเวณนั้นได้ยินเสียงเพลงปี่จึงจับตัวพระอภัยไปเป็นสามี เรื่องราวตรงจุดนี้จึงกลายเป็นจุดเริ่มต้นของการผจญภัยอันพิสดารอีกยืดยาวของพระอภัยมณีในเวลาต่อมา",
+	"name":"Apaimanee",
+        "hp":200,
+        "mana":150,
+        "hp_regen":1.5,
+        "mana_regen":0.5,
+        "damage":60,
+        "damage_critical":0.0,
+        "magic":0,
+        "armor":30,
+        "magic_resis":30,
+        "damage_speed":0.65,
+        "move_speed":330,
+        "skills":[
+            {
+                "describtion":"pppp",
+                "name":"ccc",
+                "damage":35,
+                "magic":0,
+                "used_mana":40,
+                "cooldown":3,
+                "buffs_damage":15,
+                "reduced_damage":0,
+                "buffs_armor":0,
+                "reduced_armor":0,
+                "buffs_mana":0
+            },
+            {
+
+                "describtion":"pppp",
+                "name":"cvc",
+                "damage":35,
+                "magic":"0",
+                "used_mana":40,
+                "cooldown":3,
+                "buffs_damage":15,
+                "reduced_damage":0,
+                "buffs_armor":0,
+                "reduced_armor":0,
+                "buffs_mana" :0
+            },
+            {
+                "describtion":"nnnn",
+                "name":"njn",
+                "damage":35,
+                "magic":0,
+                "used_mana":40,
+                "cooldown":3,
+                "buffs_damage":15,
+                "reduced_damage":0,
+                "buffs_armor":0,
+                "reduced_armor":0,
+                "buffs_mana" :0
+            },
+
+            {
+                "describtion":"ffff",
+                "name":"plp",
+                "damage":35,
+                "magic":0,
+                "used_mana":40,
+                "cooldown":3,
+                "buffs_damage":15,
+                "reduced_damage":0,
+                "buffs_armor":0,
+                "reduced_armor":0,
+                "buffs_mana" :0
+            }
+            ]
+    }
+

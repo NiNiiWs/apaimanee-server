@@ -5,7 +5,7 @@ import datetime
 
 class HeroSkill(me.EmbeddedDocument):
 
-    describtion = me.StringField(max_length=500, required=True)
+    describtion = me.StringField(max_length=2000, required=True)
     name = me.StringField(required=True)
     damage = me.IntField(required=True)
     magic = me.IntField(required=True)
@@ -16,17 +16,29 @@ class HeroSkill(me.EmbeddedDocument):
     buffs_armor = me.IntField(required=True)
     reduced_armor = me.IntField(required=True)
     buffs_mana = me.IntField(required=True)
-
+    buffs_hp = me.IntField(required=True)
+    reduce_hp = me.IntField(required=True)
+    buffs_strength = me.IntField(required=True)
+    buffs_agi = me.IntField(required=True)
+    sight_range = me.IntField(required=True)
+    attack_range = me.IntField(required=True)
+    attack_speed = me.IntField(required=True)
+    stun_duration = me.IntField(required=True)
+    radius = me.IntField(required=True)
+    cast_delay = me.IntField(required=True)
+    duration = me.IntField(required=True)
 
 class Hero(me.Document):
     meta = {'collection': 'heroes'}
 
-    describtion = me.StringField(max_length=500, required=True)
+    describtion = me.StringField(max_length=2000, required=True)
     name = me.StringField(max_length=100, required=True)
     hp = me.IntField(required=True)
     mana = me.IntField(required=True)
     hp_regen = me.FloatField(required=True)
     mana_regen = me.FloatField(required=True)
+    strength = me.IntField(required=True)
+    agility = me.IntField(required=True)
     damage = me.IntField(required=True)
     damage_critical = me.FloatField(required=True)
     magic = me.IntField(required=True)

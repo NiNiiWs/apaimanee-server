@@ -9,10 +9,16 @@ class GameUnit:
         self.hp = 0
         self.armor = 0
         self.magic_resist = 0
+        self.strenght = 0
+        self.agility = 0
 
     def to_data_dict(self):
         result = dict(damage=self.damage,
-                hp=self.hp)
+                hp=self.hp,
+                armor=self.armor,
+                magic_resist=self.magic_resist,
+                strenght=self.strenght,
+                agility=self.agility)
         return result
 
 
@@ -33,6 +39,7 @@ class Player(GameUnit):
         self.hp_regen = kwargs.get('hp_regen', 0)
         self.mana_regen = kwargs.get('mana_regen', 0)
         self.time_death = 10
+
 
     def to_data_dict(self):
         result = dict(score_creep = self.score_creep,
@@ -126,10 +133,10 @@ class GameStatusController(threading.Thread):
 
         if method == 'update_game_status':
             # update game status here
-
-            response = dict(game=game.to_data_dict(), method='synchronize_game_status')
-            response_json = json.dumps(response)
-            self.mqtt_client.publish(self.game_topic_synchonize(client_id, game_msg['room_id']), response_json)
+            for p in game.players:
+                response = dict(game=game.to_data_dict(), method='synchronize_game_status')
+                response_json = json.dumps(response)
+                self.mqtt_client.publish(self.game_topic_synchonize(p.client_id, game_msg['room_id']), response_json)
 
 
     def game_topic_synchonize(self, client_id, room_id):
