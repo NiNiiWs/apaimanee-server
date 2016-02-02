@@ -40,7 +40,6 @@ class Room(Manager):
     def create_room(self, request):
         room_name = request.get('room_name')
         room_id = str(uuid.uuid4())
-
         user = self.get_user(request)
 
         game_status = ApaimaneeGame(room_id, room_name)

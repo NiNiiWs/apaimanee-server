@@ -14,6 +14,14 @@ class ApaimaneeController:
         self.game_controller = game_controller.GameStatusController(self.mqtt_client, self.room)
         self.game_controller.start()
 
+        # comment if release
+        from .managers.rooms import ApaimaneeGame, Player
+        test_room_id = 'test_room_id'
+        game_status = ApaimaneeGame(test_room_id, 'test_room_name')
+        game_status.players.append(Player('test_client_id', None))
+        self.room.rooms[test_room_id] = game_status
+
+
     def stop(self):
         self.game_controller.stop()
 
