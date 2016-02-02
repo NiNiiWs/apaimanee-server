@@ -18,4 +18,5 @@ class DataHero():
             hero_dict = json.load(fp)
             print(hero_dict)
             hero = models.Hero(**hero_dict)
+            print(hero)
             hero.save()

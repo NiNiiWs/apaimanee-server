@@ -1,8 +1,9 @@
 from apmn_server import models
 
 from apmn_server.initial.heroes import DataHero
-from apmn_server.initial.items import DataItem
+#from apmn_server.initial.items import DataItem
 import os
+import sys
 
 class DataHeroTest():
     def __init__(self):
@@ -14,7 +15,12 @@ class DataHeroTest():
         models.initial(settings)
 
     def test_load(self):
-        d = DataHero('/home/aran/projects/apaimanee-server')
+        d = None
+        if len(sys.argv) == 1:
+            d = DataHero('.')
+        else:
+            d = DataHero(sys.argv[1])
+
         d.load()
 
 if __name__ == '__main__':

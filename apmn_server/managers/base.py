@@ -32,5 +32,9 @@ class Manager:
         if token:
             return token.user
 
+        # remove if release
+        if token_str == 'test_token':
+            return models.User.objects(username='test').first()
+
         return None
 

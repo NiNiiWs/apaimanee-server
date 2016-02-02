@@ -32,17 +32,16 @@ class ApaimaneeServer:
         self.mqtt_client.on_connect = on_connect
         self.mqtt_client.on_message = on_message
 
-        self.controller = controller.ApaimaneeController(self.mqtt_client)
-        self.mqtt_client.user_data_set(self.controller)
-
-        self.rpc_server = rpc_server.RPCServer(self.controller, self.mqtt_client)
-
         settings = {
                 'mongodb.db_name':'apmn',
                 'mongodb.host': 'localhost'
                 }
 
         models.initial(settings)
+        self.controller = controller.ApaimaneeController(self.mqtt_client)
+        self.mqtt_client.user_data_set(self.controller)
+        self.rpc_server = rpc_server.RPCServer(self.controller, self.mqtt_client)
+
 
     def reconnect(self):
         self.mqtt_client.connect("localhost", 1883, 60)
