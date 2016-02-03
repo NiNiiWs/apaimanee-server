@@ -26,7 +26,18 @@
                 "reduced_damage":0,
                 "buffs_armor":0,
                 "reduced_armor":0,
-                "buffs_mana":0
+                "buffs_mana":0,
+                "buffs_hp":0,
+                "reduced_hp":0,
+                "buffs_strength":0,
+                "buffs_agi":0,
+                "sight_range":0,
+                "attack_range":0,
+                "attack_speed":0,
+                "stun_duration":0,
+                "radius":0,
+                "case_delay":0,
+                "duration":0
             },
             {
 
@@ -40,7 +51,18 @@
                 "reduced_damage":0,
                 "buffs_armor":0,
                 "reduced_armor":0,
-                "buffs_mana" :0
+                "buffs_mana" :0,
+                "buffs_hp":0,
+                "reduced_hp":0,
+                "buffs_strength":0,
+                "buffs_agi":0,
+                "sight_range":0,
+                "attack_range":0,
+                "attack_speed":0,
+                "stun_duration":0,
+                "radius":0,
+                "case_delay":0,
+                "duration":0
             },
             {
                 "describtion":"nnnn",
@@ -53,7 +75,18 @@
                 "reduced_damage":0,
                 "buffs_armor":0,
                 "reduced_armor":0,
-                "buffs_mana" :0
+                "buffs_mana" :0,
+                "buffs_hp":0,
+                "reduced_hp":0,
+                "buffs_strength":0,
+                "buffs_agi":0,
+                "sight_range":0,
+                "attack_range":0,
+                "attack_speed":0,
+                "stun_duration":0,
+                "radius":0,
+                "case_delay":0,
+                "duration":0
             },
 
             {
@@ -67,7 +100,18 @@
                 "reduced_damage":0,
                 "buffs_armor":0,
                 "reduced_armor":0,
-                "buffs_mana" :0
+                "buffs_mana" :0,
+                "buffs_hp":0,
+                "reduced_hp":0,
+                "buffs_strength":0,
+                "buffs_agi":0,
+                "sight_range":0,
+                "attack_range":0,
+                "attack_speed":0,
+                "stun_duration":0,
+                "radius":0,
+                "case_delay":0,
+                "duration":0
             }
             ]
     }
