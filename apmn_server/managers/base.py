@@ -1,5 +1,6 @@
 
 import json
+import datetime
 from .. import models
 
 
@@ -7,6 +8,8 @@ class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, models.User):
             return dict(id=str(obj.id), username=obj.username)
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
         return json.JSONEncoder.default(self, obj)
 
 class Manager:

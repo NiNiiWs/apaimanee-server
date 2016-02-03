@@ -27,7 +27,7 @@ class ApaimaneeServer:
 
         self.server_id = str(uuid.uuid1())
         self.mqtt_client = mqttclient.Client(self.server_id,
-                clean_session=False)
+                clean_session=True)
 
         self.mqtt_client.on_connect = on_connect
         self.mqtt_client.on_message = on_message

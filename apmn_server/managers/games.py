@@ -10,6 +10,7 @@ class Player:
         self.client_id = client_id
         self.user = user
         self.token = token
+        self.ready = False
 
 class ApaimaneeGame:
     def __init__(self, room_id, room_name):
@@ -19,8 +20,15 @@ class ApaimaneeGame:
         self.players = []
         self.game_object = None
 
-    def ready(self):
-        response = dict(method='wait')
+    def ready(self, request):
+        player = request['player']
+        player.ready = True
+
+        player_ready_count = len([p for p in self.players if p.ready])
+        if player_ready_count != len(self.players):
+            return
+
+        response = dict(method='start_game')
         return response
 
     def to_data_dict(self):

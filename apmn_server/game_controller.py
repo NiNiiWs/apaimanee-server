@@ -2,6 +2,9 @@
 import time
 import threading
 import json
+import datetime
+
+from .managers.base import ComplexEncoder
 
 class GameUnit:
     def __init__(self):
@@ -122,9 +125,11 @@ class GameStatusController(threading.Thread):
             return
 
         client_id = None
+        player = None
         for p in game.players:
             if p.token == game_msg.get('token', None):
                 client_id = p.client_id
+                player = p
 
         if client_id is None:
             print("invalid token")
@@ -132,19 +137,20 @@ class GameStatusController(threading.Thread):
 
         method = game_msg['method']
         args = game_msg['args']
-        response_method = 'synchronize_game_status'
+
+        request = dict(game_msg=game_msg, args=args, player=player)
         response = dict()
 
         func = None
         try:
             func = getattr(game, method)
         except:
-            print('==>',game.__dict__)
             print('can not find method:', method)
             return
 
-        response = func(**args)
-
+        response = func(request)
+        if response is None:
+            return
         # response message
         self.response_all(response, game)
 
@@ -155,7 +161,8 @@ class GameStatusController(threading.Thread):
             self.response(response, client_id, game)
 
     def response(self, response, client_id, game):
-        response_json = json.dumps(response)
+        response['reponse_date'] = datetime.datetime.now()
+        response_json = json.dumps(response, cls=ComplexEncoder)
         self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json)
 
     def game_topic_synchonize(self, client_id, room_id):
