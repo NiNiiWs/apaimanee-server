@@ -23,15 +23,16 @@ class User(me.Document):
     ip_address = me.StringField(
         max_length=100, required=True, default='0.0.0.0')
 
-    def set_password(self, password):
+    def hash_password(password):
         m = hashlib.sha512()
         m.update(password.encode('utf-8'))
-        self.password = m.hexdigest()
+        return m.hexdigest()
+
+    def set_password(self, password):
+        self.password = hash_password(password)
 
     def check_password(self, password):
-        m = hashlib.sha512()
-        m.update(password.encode('utf-8'))
-        return m.hexdigest() == self.password
+        return hash_password(password) == self.password
 
 
 # class Role(me.Document):

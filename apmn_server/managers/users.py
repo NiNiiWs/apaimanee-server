@@ -7,12 +7,13 @@ class User(Manager):
     def login(self, request):
         print('check login')
         args = request.get('args')
-        email = args.get('email')
+        username = args.get('username')
+        password = args.get('password')
 
 
         response = dict()
 
-        user = models.User.objects(email=email).first()
+        user = models.User.objects(username=username, password=models.User.hash_password(password)).first()
 
         if user:
             response['loggedin'] = True
