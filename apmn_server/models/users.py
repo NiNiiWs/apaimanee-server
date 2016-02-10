@@ -29,7 +29,7 @@ class User(me.Document):
         return m.hexdigest()
 
     def set_password(self, password):
-        self.password = hash_password(password)
+        self.password = User.hash_password(password)
 
     def check_password(self, password):
         return hash_password(password) == self.password
