@@ -4,12 +4,18 @@ import datetime
 from .. import models
 
 
+from . import games
+
 class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, models.User):
             return dict(id=str(obj.id), username=obj.username)
         if isinstance(obj, datetime.datetime):
             return obj.isoformat()
+        if isinstance(obj, games.ApaimaneeGame):
+            return obj.to_data_dict()
+        if isinstance(obj, games.Player):
+            return obj.to_data_dict()
         return json.JSONEncoder.default(self, obj)
 
 class Manager:

@@ -18,8 +18,8 @@ class ApaimaneeController:
         from .managers.rooms import ApaimaneeGame, Player
         from apmn_server import models
         test_room_id = 'test_room_id'
-        game_status = ApaimaneeGame(test_room_id, 'test_room_name')
         u = models.User.objects(username='test').first()
+        game_status = ApaimaneeGame(test_room_id, 'test_room_name', u)
         game_status.players.append(Player('test_client_id', u, 'test_token'))
         self.room.rooms[test_room_id] = game_status
 

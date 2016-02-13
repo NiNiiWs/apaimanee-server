@@ -1,5 +1,3 @@
-from .base import Manager
-from apmn_server import models
 import uuid
 import datetime
 import json
@@ -11,14 +9,24 @@ class Player:
         self.user = user
         self.token = token
         self.ready = False
+        self.team = 'team1'
+
+    def to_data_dict(self):
+        result = dict(id=str(self.user.id),
+                username=self.user.username,
+                ready=self.ready,
+                team=self.team
+                )
+        return result
 
 class ApaimaneeGame:
-    def __init__(self, room_id, room_name):
+    def __init__(self, room_id, room_name, owner):
         self.status = 'wait'
         self.room_id = room_id
         self.room_name = room_name
         self.players = []
         self.game_object = None
+        self.owner=owner
 
     def ready(self, request):
         player = request['player']
@@ -33,9 +41,11 @@ class ApaimaneeGame:
 
     def to_data_dict(self):
         result = dict(status=self.status,
-                room_id=self.room_id,
-                players=[str(p.user.id) for p in self.players],
-                game_object=self.game_object
+                    room_id=self.room_id,
+                    room_name=self.room_name,
+                    owner=self.owner,
+                    players=[str(p.user.id) for p in self.players if p.user],
+                    game_object=self.game_object
                 )
         return result
 
