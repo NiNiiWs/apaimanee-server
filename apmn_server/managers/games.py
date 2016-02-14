@@ -2,6 +2,20 @@ import uuid
 import datetime
 import json
 
+class GameUnit:
+    def __init__(self, **kw):
+        self.__dict__.update(kw)
+
+    def to_data_dict(self):
+        return vars(self)
+
+class GameSpace:
+    def __init__(self):
+        self.heros = {}
+
+    def to_data_dict(self):
+        return vars(self)
+
 
 class Player:
     def __init__(self, client_id, user, token):
@@ -25,7 +39,7 @@ class ApaimaneeGame:
         self.room_id = room_id
         self.room_name = room_name
         self.players = []
-        self.game_object = None
+        self.game_space = GameSpace()
         self.owner=owner
 
     def ready(self, request):
@@ -45,7 +59,7 @@ class ApaimaneeGame:
                     room_name=self.room_name,
                     owner=self.owner,
                     players=[str(p.user.id) for p in self.players if p.user],
-                    game_object=self.game_object
+                    game_space=self.game_space
                 )
         return result
 

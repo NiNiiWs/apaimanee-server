@@ -4,7 +4,7 @@ import uuid
 import datetime
 import json
 
-from .games import ApaimaneeGame, Player
+from .games import ApaimaneeGame, Player, GameUnit
 
 class Room(Manager):
     def __init__(self, mqtt_client):
@@ -82,6 +82,29 @@ class Room(Manager):
         response = dict(players=players)
 
         return response
+
+    def select_hero(self, request):
+        print('select hero request', request)
+        hero_name = request['args'].get('hero', None)
+        room_id = request['args'].get('room_id', None)
+        game = self.rooms.get(room_id, None)
+
+        hero = models.Hero.objects(name=hero_name).first()
+
+        user = self.get_user(request)
+
+        if hero is None:
+            return
+
+
+        gu = GameUnit(**vars(hero))
+        game.game_space.heros[request['client_id']] = gu
+
+        response = dict()
+        return response
+
+    def leave_game(self,request):
+        pass
 
     def start_game(self, request):
         room_id = request['args'].get('room_id', None)

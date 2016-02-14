@@ -16,6 +16,11 @@ class ComplexEncoder(json.JSONEncoder):
             return obj.to_data_dict()
         if isinstance(obj, games.Player):
             return obj.to_data_dict()
+        if isinstance(obj, games.GameUnit):
+            return obj.to_data_dict()
+        if isinstance(obj, games.GameSpace):
+            return obj.to_data_dict()
+
         return json.JSONEncoder.default(self, obj)
 
 class Manager:

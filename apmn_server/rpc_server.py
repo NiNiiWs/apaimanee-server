@@ -12,7 +12,8 @@ class RPCServer:
                 create_room=controller.room.create_room,
                 join_game=controller.room.join_game,
                 list_rooms=controller.room.list_rooms,
-                list_players=controller.room.list_players
+                list_players=controller.room.list_players,
+                select_hero=controller.room.select_hero
                 )
         self.controller = controller
         self.mqtt_client = mqtt_client
