@@ -97,7 +97,7 @@ class Room(Manager):
             return
 
 
-        gu = GameUnit(**vars(hero))
+        gu = GameUnit(**dict(hero.to_mongo()))
         game.game_space.heros[request['client_id']] = gu
 
         response = dict()

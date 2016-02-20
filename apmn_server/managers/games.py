@@ -33,6 +33,12 @@ class Player:
                 )
         return result
 
+class GameResponse:
+    def __init__(self, method, args=None, response_type='all'):
+        self.response_type = response_type
+        self.args = args
+        self.method = method
+
 class ApaimaneeGame:
     def __init__(self, room_id, room_name, owner):
         self.status = 'wait'
@@ -50,8 +56,16 @@ class ApaimaneeGame:
         if player_ready_count != len(self.players):
             return
 
-        response = dict(method='start_game')
+        response = GameResponse(method='start_game')
         return response
+
+    def initial(self, request):
+        args = dict(players=self.players, game_space=self.game_space)
+        response = GameResponse(method='initial_game',
+                args=args,
+                response_type='owner')
+        return response
+
 
     def to_data_dict(self):
         result = dict(status=self.status,

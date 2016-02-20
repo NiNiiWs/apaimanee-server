@@ -17,6 +17,9 @@ class DataHero():
             fp = open(self.hero_data_path+'/'+filepath, 'r')
             hero_dict = json.load(fp)
             print(hero_dict)
-            hero = models.Hero(**hero_dict)
-            print(hero)
+            hero = models.Hero.objects(name=hero_dict['name']).first()
+            if hero:
+                hero.update(**hero_dict)
+            else:
+                hero = models.Hero(**hero_dict)
             hero.save()

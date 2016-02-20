@@ -5,6 +5,7 @@ from .. import models
 
 
 from . import games
+import bson
 
 class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -20,6 +21,8 @@ class ComplexEncoder(json.JSONEncoder):
             return obj.to_data_dict()
         if isinstance(obj, games.GameSpace):
             return obj.to_data_dict()
+        if isinstance(obj, bson.ObjectId):
+            return str(obj)
 
         return json.JSONEncoder.default(self, obj)
 

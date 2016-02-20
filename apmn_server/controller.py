@@ -15,13 +15,15 @@ class ApaimaneeController:
         self.game_controller.start()
 
         # comment if release
-        from .managers.rooms import ApaimaneeGame, Player
+        from .managers.rooms import ApaimaneeGame, Player, GameUnit
         from apmn_server import models
         test_room_id = 'test_room_id'
         u = models.User.objects(username='test').first()
-        game_status = ApaimaneeGame(test_room_id, 'test_room_name', u)
-        game_status.players.append(Player('test_client_id', u, 'test_token'))
-        self.room.rooms[test_room_id] = game_status
+        game = ApaimaneeGame(test_room_id, 'test_room_name', u)
+        game.players.append(Player('test_client_id', u, 'test_token'))
+        self.room.rooms[test_room_id] = game
+        hero = models.Hero.objects(name='Sinsamut').first()
+        game.game_space.heros['test_client_id'] = GameUnit(**dict(hero.to_mongo()))
 
 
     def stop(self):
