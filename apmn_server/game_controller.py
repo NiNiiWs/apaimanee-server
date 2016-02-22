@@ -65,10 +65,8 @@ class GameStatusController(threading.Thread):
     def response_other(self, response, game, client_id):
         for player in game.players:
             c_id = player.client_id
-            if c_id == client_id:
-                continue
-
-            self.response(response, client_id, game)
+            if c_id != client_id:
+                self.response(response, c_id, game)
 
     def response_all(self, response, game):
         for player in game.players:
@@ -78,7 +76,8 @@ class GameStatusController(threading.Thread):
     def response(self, response, client_id, game):
         response.reponse_date = datetime.datetime.now()
         response_json = json.dumps(vars(response), cls=ComplexEncoder)
-        self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json)
+        self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json, 1)
+        print('publish to',client_id, response_json)
 
     def game_topic_synchonize(self, client_id, room_id):
         return 'apaimanee/clients/{}/rooms/{}/synchronize'.format(client_id, room_id)
