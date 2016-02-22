@@ -41,6 +41,8 @@ class Room(Manager):
                 for p in game.players:
                     if user == p.user:
                         check = True
+                        # remove if deploy
+                        p.client_id = request['client_id']
                         break
 
                 if not check:

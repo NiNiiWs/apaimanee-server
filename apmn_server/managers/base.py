@@ -33,7 +33,7 @@ class Manager:
     def __get_rpc_topic(self, client_id):
         return 'apaimanee/clients/%s/response' % client_id
 
-    def publish(self, topic, msg, qos=0, retain=False):
+    def publish(self, topic, msg, qos=1, retain=False):
         msg_str = json.dumps(msg, cls=ComplexEncoder)
         if topic is not None:
             self.mqtt_client.publish(topic, msg_str, qos, retain)

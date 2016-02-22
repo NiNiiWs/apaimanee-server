@@ -20,13 +20,14 @@ class GameSpace:
 class Player:
     def __init__(self, client_id, user, token):
         self.client_id = client_id
+        self.id = str(user.id)
         self.user = user
         self.token = token
         self.ready = False
         self.team = 'team1'
 
     def to_data_dict(self):
-        result = dict(id=str(self.user.id),
+        result = dict(id=self.id,
                 username=self.user.username,
                 ready=self.ready,
                 team=self.team
@@ -53,6 +54,7 @@ class ApaimaneeGame:
         player.ready = True
 
         player_ready_count = len([p for p in self.players if p.ready])
+        print("ready count:", player_ready_count)
         if player_ready_count != len(self.players):
             return
 
@@ -69,17 +71,19 @@ class ApaimaneeGame:
         return response
 
     def move_hero(self, request):
-        x = request['x']
-        y = request['y']
-        client_id = request['client_id']
-        hero = self.game_space.heros[client_id]
+
+        params = request['args']
+        x = params['x']
+        y = params['y']
+        player = request['player']
+        hero = self.game_space.heros[player.id]
         hero.target = dict(x=x, y=y)
-        args = dict(x=x, y=y, player_id=player_id)
+        args = dict(x=x, y=y, player_id=player.id)
         response = GameResponse(method='move_hero',
                 args=args,
                 response_type='other')
 
-        return respons
+        return response
 
 
     def to_data_dict(self):

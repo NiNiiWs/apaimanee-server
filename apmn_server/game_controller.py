@@ -18,7 +18,6 @@ class GameStatusController(threading.Thread):
 
     def on_game_message(self, client, userdata, msg):
         game_msg = json.loads(msg.payload.decode('utf-8'))
-
         if not 'room_id' in game_msg:
             print('cannot find room_id')
             return
@@ -36,13 +35,13 @@ class GameStatusController(threading.Thread):
                 player = p
 
         if client_id is None:
-            print("invalid token")
+            print("invalid client_id")
             return
 
         method = game_msg['method']
         args = game_msg['args']
 
-        request = dict(game_msg=game_msg, args=args, player=player)
+        request = dict(game_msg=game_msg, args=args, player=player, client_id=client_id)
         response = dict()
 
         func = None
