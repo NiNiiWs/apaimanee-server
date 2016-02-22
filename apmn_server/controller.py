@@ -23,7 +23,7 @@ class ApaimaneeController:
         game.players.append(Player('test_client_id', u, 'test_token'))
         self.room.rooms[test_room_id] = game
         hero = models.Hero.objects(name='Sinsamut').first()
-        game.game_space.heros['test_client_id'] = GameUnit(**dict(hero.to_mongo()))
+        game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
 
 
     def stop(self):

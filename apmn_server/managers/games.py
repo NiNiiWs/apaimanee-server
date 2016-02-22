@@ -60,7 +60,9 @@ class ApaimaneeGame:
         return response
 
     def initial(self, request):
-        args = dict(players=self.players, game_space=self.game_space)
+        player = request['player']
+
+        args = dict(players=self.players, player=player, game_space=self.game_space)
         response = GameResponse(method='initial_game',
                 args=args,
                 response_type='owner')
