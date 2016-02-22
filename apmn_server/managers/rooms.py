@@ -103,8 +103,21 @@ class Room(Manager):
         response = dict()
         return response
 
-    def leave_game(self,request):
-        pass
+    def disconnect_room(self,request):
+        room_id = request['args'].get('room_id', None)
+        client_id = request['client_id']
+
+        game = self.rooms.get(room_id, None)
+
+        if game:
+            for player in game.players:
+                if player.client_id == client_id:
+                    game.players.remove(player)
+
+            if len(game.players) == 0:
+                self.rooms.pop(room_id)
+
+        return response
 
     def start_game(self, request):
         room_id = request['args'].get('room_id', None)
