@@ -68,6 +68,19 @@ class ApaimaneeGame:
                 response_type='owner')
         return response
 
+    def move_hero(self, request):
+        x = request['x']
+        y = request['y']
+        client_id = request['client_id']
+        hero = self.game_space.heros[client_id]
+        hero.target = dict(x=x, y=y)
+        args = dict(x=x, y=y, player_id=player_id)
+        response = GameResponse(method='move_hero',
+                args=args,
+                response_type='other')
+
+        return respons
+
 
     def to_data_dict(self):
         result = dict(status=self.status,
