@@ -74,9 +74,10 @@ class GameStatusController(threading.Thread):
             self.response(response, client_id, game)
 
     def response(self, response, client_id, game):
+        qos = response.qos
         response.reponse_date = datetime.datetime.now()
         response_json = json.dumps(vars(response), cls=ComplexEncoder)
-        self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json, 1)
+        self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json, qos)
         print('publish to',client_id, response_json)
 
     def game_topic_synchonize(self, client_id, room_id):
