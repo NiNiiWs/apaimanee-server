@@ -92,7 +92,7 @@ class ApaimaneeGame:
         skill = params['skill']
         player = request['player']
 
-        args = dict(skill=skill, player_id)
+        args = dict(skill=skill, player_id=player.id)
         response = GameResponse(method='skill_action',
                 args=args,
                 response_type='other')
