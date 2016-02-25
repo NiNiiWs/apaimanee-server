@@ -87,6 +87,18 @@ class ApaimaneeGame:
 
         return response
 
+    def skill_action(self, request):
+        params = request['args']
+        skill = params['skill']
+        player = request['player']
+
+        args = dict(skill=skill, player_id)
+        response = GameResponse(method='skill_action',
+                args=args,
+                response_type='other')
+
+        return response
+
 
     def to_data_dict(self):
         result = dict(status=self.status,
