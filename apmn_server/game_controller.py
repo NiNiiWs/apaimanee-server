@@ -57,7 +57,7 @@ class GameStatusController(threading.Thread):
         # response message
         if response.response_type == 'owner':
             self.response(response, client_id, game)
-        if response.response_type == 'other':
+        elif response.response_type == 'other':
             self.response_other(response, game, client_id)
         else:
             self.response_all(response, game)
