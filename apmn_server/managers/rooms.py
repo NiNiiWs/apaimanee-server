@@ -119,6 +119,7 @@ class Room(Manager):
             if len(game.players) == 0:
                 self.rooms.pop(room_id)
 
+        response = dict()
         return response
 
     def start_game(self, request):
