@@ -3,9 +3,11 @@ import time
 import threading
 import json
 import datetime
+import logging
 
 from .managers.base import ComplexEncoder
 
+logger = logging.getLogger('apmn')
 
 class GameStatusController(threading.Thread):
     def __init__(self, mqtt_client, room):
@@ -17,7 +19,13 @@ class GameStatusController(threading.Thread):
         self._sleep_time = 1
 
     def on_game_message(self, client, userdata, msg):
-        game_msg = json.loads(msg.payload.decode('utf-8'))
+        game_msg = {}
+        try:
+            game_msg = json.loads(msg.payload.decode('utf-8'))
+        except Exception as e:
+            logger.debug('invalid json: {}'.format(msg.payload.decode('utf-8')))
+            return
+
         if not 'room_id' in game_msg:
             print('cannot find room_id')
             return

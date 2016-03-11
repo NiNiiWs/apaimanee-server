@@ -3,11 +3,16 @@ import json
 import uuid
 import traceback
 import sys
+import os
+import logging
+import logging.config
 
 from . import callbacks
 from . import rpc_server
 from . import controller
 from . import models
+
+logger = logging.getLogger('apmn')
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
@@ -24,7 +29,7 @@ def on_message(client, userdata, msg):
     pass
 
 class ApaimaneeServer:
-    def __init__(self):
+    def __init__(self, config_file=None):
 
         self.server_id = str(uuid.uuid1())
         self.mqtt_client = mqttclient.Client(self.server_id,
@@ -33,19 +38,27 @@ class ApaimaneeServer:
         self.mqtt_client.on_connect = on_connect
         self.mqtt_client.on_message = on_message
 
-        settings = {
-                'mongodb.db_name':'apmn',
-                'mongodb.host': 'localhost'
-                }
+        from .config import Configuration
+        configuration = Configuration(config_file)
+        self.settings = configuration.settings
 
-        models.initial(settings)
+        if not os.path.exists(self.settings['apmn.log_dir']):
+            os.mkdir(self.settings['apmn.log_dir'])
+
+        if config_file:
+            logging.config.fileConfig(config_file)
+
+        models.initial(self.settings)
         self.controller = controller.ApaimaneeController(self.mqtt_client)
         self.mqtt_client.user_data_set(self.controller)
         self.rpc_server = rpc_server.RPCServer(self.controller, self.mqtt_client)
 
 
     def reconnect(self):
-        self.mqtt_client.connect("localhost", 1883, 60)
+        logger.info("apmn-server connect to mqtt server {} port {}".format(self.settings['mqtt.host'], self.settings['mqtt.port']))
+        self.mqtt_client.connect(self.settings['mqtt.host'],
+                self.settings['mqtt.port'],
+                60)
         self.register_callback()
 
     def register_callback(self):
@@ -59,8 +72,7 @@ class ApaimaneeServer:
         try:
             self.mqtt_client.loop_forever()
         except Exception as e:
-            traceback.print_exc(file=sys.stdout)
-            print(e)
+            logger.exception(e)
         finally:
             self.controller.stop()
             self.mqtt_client.disconnect()
