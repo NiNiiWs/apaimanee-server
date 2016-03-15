@@ -1,6 +1,9 @@
 import uuid
 import datetime
+import time
 import json
+
+import threading
 
 class GameUnit:
     def __init__(self, **kw):
@@ -41,14 +44,23 @@ class GameResponse:
         self.method = method
         self.qos = qos
 
-class ApaimaneeGame:
+class ApaimaneeGame(threading.Thread):
     def __init__(self, room_id, room_name, owner):
+        super().__init__()
         self.status = 'wait'
         self.room_id = room_id
         self.room_name = room_name
         self.players = []
         self.game_space = GameSpace()
         self.owner=owner
+
+    def run(self):
+        while self.status != 'stop':
+            print('game sleep')
+            time.sleep(1)
+
+    def update(self, request):
+        print("update", request)
 
     def ready(self, request):
         player = request['player']

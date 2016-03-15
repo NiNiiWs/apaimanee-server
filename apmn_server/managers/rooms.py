@@ -126,6 +126,7 @@ class Room(Manager):
         room_id = request['args'].get('room_id', None)
         game = self.rooms.get(room_id, None)
         game.status = 'play'
+        game.start()
 
         return dict(status='play')
 
