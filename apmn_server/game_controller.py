@@ -80,6 +80,7 @@ class GameStatusController(threading.Thread):
         for player in game.players:
             client_id = player.client_id
             self.response(response, client_id, game)
+            print(player.id)
 
     def response(self, response, client_id, game):
         qos = response.qos
