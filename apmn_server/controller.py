@@ -24,7 +24,7 @@ class ApaimaneeController:
         self.room.rooms[test_room_id] = game
         hero = models.Hero.objects(name='Sinsamut').first()
         game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
-        
+
 
     def stop(self):
         self.game_controller.stop()

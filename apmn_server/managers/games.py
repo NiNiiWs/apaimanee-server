@@ -84,6 +84,15 @@ class ApaimaneeGame(threading.Thread):
                 qos=1)
         return response
 
+#    def test_myfunc(self, request):
+#        test = request['args']
+#        args = dict(players = self.players)
+#        response = GameResponse(method = 'test_myfunc',
+#                args=args,
+#                response_type='owner',
+#                qos=1)
+#        return response
+
     def move_hero(self, request):
 
         params = request['args']
