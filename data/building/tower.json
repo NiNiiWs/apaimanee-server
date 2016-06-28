@@ -1,0 +1,103 @@
+{
+    "tower_team1":[
+        {
+            "position": "mid_lvl1",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage":100,
+            "position_x": 450,
+            "position_y": 450
+        },
+        {
+            "position": "mid_lvl2",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage":150,
+            "position_x": 350,
+            "position_y": 350
+        },
+        {
+            "position": "mid_lvl3",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 200,
+            "position_x": 250,
+            "position_y": 250
+        },
+        {
+            "position": "top_lvl1",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 100,
+            "position_x": 450,
+            "position_y": 450
+        },
+        {
+            "position": "top_lvl2",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 150,
+            "position_x": 350,
+            "position_y": 350
+        },
+        {
+            "position": "top_lvl3",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 200,
+            "position_x": 250,
+            "position_y": 250
+        },
+        {
+            "position": "btm_lvl1",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage":100,
+            "position_x": 450,
+            "position_y": 450
+        },
+        {
+            "position": "btm_lvl2",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 150,
+            "position_x": 350,
+            "position_y": 350
+        },
+        {
+            "position": "btm_lvl3",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 200,
+            "position_x": 250,
+            "position_y": 250
+        },
+        {
+            "position": "base_left",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage":100,
+            "position_x": 450,
+            "position_y": 450
+        },
+        {
+            "position": "base_right",
+            "hp": 3000,
+            "armor": 20,
+            "damage_speed": 0.65,
+            "damage": 150,
+            "position_x": 350,
+            "position_y": 350
+        }
+    ]
+}

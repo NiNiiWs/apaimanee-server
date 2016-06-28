@@ -1,0 +1,19 @@
+{
+    "base":[
+        {
+            "position": "team1",
+            "hp": 5000,
+            "armor": 20,
+            "position_x": 50,
+            "position_y": 50
+        },
+        {
+            "position": "team2",
+            "hp": 5000,
+            "armor": 20,
+            "position_X": 950,
+            "position_y": 950
+        }
+    ]
+
+}
