@@ -4,4 +4,11 @@ class BattleArena:
         self.size = size_x
         self.size = size_y
 
-    
+    def get_player(self):
+        pass
+
+    def get_position(self):
+        pass
+
+    def get_status(self):
+        pass
