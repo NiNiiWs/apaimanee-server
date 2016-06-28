@@ -120,7 +120,6 @@ class ApaimaneeGame(threading.Thread):
 
         return response
 
-
     def to_data_dict(self):
         result = dict(status=self.status,
                     room_id=self.room_id,

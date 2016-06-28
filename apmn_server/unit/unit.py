@@ -8,18 +8,20 @@ class Unit:
                 take_damaged = False,
                 buff_status = [""],
                 position_x = 0,
-                position_y = 0
+                position_y = 0,
+                unit_range = 0
                 ):
         self.id = str(uuid.uuid4())
         self.max_hp = max_hp
         self.current_hp = max_hp
         self.max_mana = max_mana
-        selfdamage = damage
+        self.damage = damage
         self.armor = armor
         self.alive = True
         self.take_damaged = take_damaged
         self.pos_x = position_x
         self.pos_y = position_y
+        self.range = unit_range
 
     def get_hp(self):
         return self.current_hp
