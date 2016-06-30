@@ -6,7 +6,7 @@ import datetime
 import logging
 
 from .managers.base import ComplexEncoder
-
+from .managers.battle_arena import BattleArena
 logger = logging.getLogger('apmn')
 
 class GameStatusController(threading.Thread):

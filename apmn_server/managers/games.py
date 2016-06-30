@@ -5,6 +5,8 @@ import json
 
 import threading
 
+from .battle_arena import BattleArena
+
 class GameUnit:
     def __init__(self, **kw):
         self.__dict__.update(kw)
@@ -12,12 +14,12 @@ class GameUnit:
     def to_data_dict(self):
         return vars(self)
 
-class GameSpace:
-    def __init__(self):
-        self.heros = {}
+#class GameSpace:
+#    def __init__(self):
+#        self.heros = {}
 
-    def to_data_dict(self):
-        return vars(self)
+ #   def to_data_dict(self):
+ #       return vars(self)
 
 
 class Player:
@@ -51,7 +53,7 @@ class ApaimaneeGame(threading.Thread):
         self.room_id = room_id
         self.room_name = room_name
         self.players = []
-        self.game_space = GameSpace()
+        self.game_space = BattleArena(self.players)
         self.owner=owner
 
     def run(self):
@@ -83,15 +85,6 @@ class ApaimaneeGame(threading.Thread):
                 response_type='owner',
                 qos=1)
         return response
-
-#    def test_myfunc(self, request):
-#        test = request['args']
-#        args = dict(players = self.players)
-#        response = GameResponse(method = 'test_myfunc',
-#                args=args,
-#                response_type='owner',
-#                qos=1)
-#        return response
 
     def move_hero(self, request):
 

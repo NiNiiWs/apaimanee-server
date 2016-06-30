@@ -2,7 +2,6 @@ import json
 
 from . import managers
 from . import game_controller
-from .battle_arena import BattleArena
 
 class ApaimaneeController:
     def __init__(self, mqtt_client):
@@ -24,6 +23,7 @@ class ApaimaneeController:
         self.room.rooms[test_room_id] = game
         hero = models.Hero.objects(name='Sinsamut').first()
         game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
+        print(game.game_space.heros)
 
 
     def stop(self):

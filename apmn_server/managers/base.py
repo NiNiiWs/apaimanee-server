@@ -5,6 +5,7 @@ from .. import models
 
 
 from . import games
+from . import battle_arena
 import bson
 
 class ComplexEncoder(json.JSONEncoder):
@@ -19,7 +20,7 @@ class ComplexEncoder(json.JSONEncoder):
             return obj.to_data_dict()
         if isinstance(obj, games.GameUnit):
             return obj.to_data_dict()
-        if isinstance(obj, games.GameSpace):
+        if isinstance(obj, battle_arena.BattleArena):
             return obj.to_data_dict()
         if isinstance(obj, bson.ObjectId):
             return str(obj)
