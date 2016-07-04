@@ -52,8 +52,7 @@ class Hero(me.Document):
 class Creep(me.Document):
     meta = {'collection': 'creeps'}
 
-    describtion = me.StringField(max_length=500, required=True)
-    name = me.StringField(max_length=100,required=True)
+    name = me.StringField(max_length=500, required=True)
     damage = me.IntField(required=True)
     magic = me.IntField(required=True)
     hp = me.IntField(required=True)
@@ -64,7 +63,8 @@ class Creep(me.Document):
     move_speed = me.IntField(required=True)
     damage_speed = me.IntField(required=True)
     money = me.IntField(required=True)
-
+    position_x = me.IntField(required=True)
+    position_y = me.IntField(required=True)
 
 class Tower(me.Document):
     meta = {'collection': 'towers'}
