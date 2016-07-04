@@ -70,6 +70,10 @@ class Tower(me.Document):
     meta = {'collection': 'towers'}
 
     name = me.StringField(max_length=100, required=True)
+    hp = me.IntField(required=True)
+    mana = me.IntField(required=True)
+    hp_regen = me.IntField(required=True)
+    mana_regen = me.IntField(required=True)
     damage = me.IntField(required=True)
     armor = me.IntField(required=True)
     damage_speed = me.IntField(required=True)
