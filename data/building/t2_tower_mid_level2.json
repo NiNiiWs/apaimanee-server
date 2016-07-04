@@ -1,0 +1,19 @@
+{
+	"tower_team2":
+	{
+            "name": "tower_mid_level2",
+            "position": "mid_lvl2",
+            "hp": 3000,
+            "mana":0,
+            "hp_regen":0,
+            "mana_regen":0,
+            "damage":150,
+            "armor": 20,
+            "damage_speed":0.65,
+            "magic_resis":0,
+            "damage_range":0,
+            "cost": 160,
+            "position_x": 350,
+            "position_y": 350
+        }
+}
