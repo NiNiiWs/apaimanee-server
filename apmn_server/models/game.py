@@ -69,12 +69,15 @@ class Creep(me.Document):
 class Tower(me.Document):
     meta = {'collection': 'towers'}
 
+    name = me.StringField(max_length=100, required=True)
     damage = me.IntField(required=True)
     armor = me.IntField(required=True)
     damage_speed = me.IntField(required=True)
     magic_resis = me.IntField(required=True)
     damage_range = me.FloatField(required=True)
     cost = me.IntField(required=True)
+    position_x = me.IntField(required=True)
+    position_y = me.IntField(required=True)
 
 class Item(me.Document):
     meta = {'collection': 'items'}
