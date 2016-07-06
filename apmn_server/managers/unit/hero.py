@@ -9,32 +9,37 @@ from .unit import Unit
 
 class Hero(Unit):
     def __init__(self,
-                name,
-                max_hp,
-                max_mana,
-                damage,
-                status,
-                armor = 0,
-                magic_resis = 0,
-                damage_speed = 0.5,
-                move_speed = 330,
+                data_unit,
                 position_x = 20,
                 position_y = 20,
+                unit_range = 50, #self.range = unit_range
+                id_controller = 'system'
                 ):
-        super().__init__(name,
-                         max_hp,
-                         max_mana,
-                         damage,
-                         armor,
+        super().__init__(
+                         data_unit,
                          True,
                          [""],
                          position_x,
-                         position_y
+                         position_y,
+                         unit_range,
+                         id_controller
                          )
+        self.str = self.data_unit.strength
+        self.agi = self.data_unit.agility
+        self.damage_critical = self.data_unit.damage_critical
+        self.magic = self.data_unit.magic
+        self.magic_resis = self.data_unit.magic_resis
+        self.damage_speed = self.data_unit.damage_speed
+        self.move_speed = self.data_unit.move_speed
+        self.skills = self.data_unit.skills
         self.level = 1
+        self.kill = 0
+        self.death = 0
+        self.assist = 0
+        self.lasthit = 0
         self.current_exp = 0
         self.move_status = True
-        self.status = status
+        self.act_status = ""
         self.time_to_born = 0
 
     def level_up(self):
@@ -58,6 +63,27 @@ class Hero(Unit):
 
     def get_alvie(self):
         self.alive = True
+
+    def get_status(self):
+        status = {
+                "hp": self.current_hp,
+                "mana": self.current_mana,
+                "str": self.str,
+                "agi": self.agi,
+                "damage": self.damage_critical,
+                "magic": self.magic,
+                "magic_resis": self.magic_resis,
+                "damage_speed": self.damage_speed,
+                "move_speed": self.move_speed,
+                "skills": self.skills,
+                "level": self.level,
+                "kill": self.kill,
+                "death": self.death,
+                "assist": self.assist,
+                "lasthit": self.lasthit,
+                "current_exp":self.current_exp
+                 }
+        return status
 
     def move(self,x,y):
         if self.move_status:

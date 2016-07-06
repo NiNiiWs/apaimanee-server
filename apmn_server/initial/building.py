@@ -15,7 +15,7 @@ class DataBuilding():
             fp = open(self.hero_data_path+'/'+filepath, 'r')
             building_dict = json.load(fp)
             print(_dict)
-            building = models.Building.objects(name=hero_dict['name']).first()
+            tower = models.Tower.objects(name=building_dict['name']).first()
             if hero:
                 building.update(**building_dict)
             else:

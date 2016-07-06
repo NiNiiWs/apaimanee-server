@@ -1,10 +1,7 @@
 {
-    "tower_team1":{
-
-            "name": "tower_top_level2",
-            "position": "top_lvl2",
+            "name": "t1_tower_base_left",
             "hp": 3000,
-            "mana":0,
+            "mana": 0,
             "hp_regen":0,
             "mana_regen":0,
             "damage":150,
@@ -12,9 +9,8 @@
             "damage_speed": 0.65,
             "magic_resis":0,
             "damage_range":200,
-            "cost":160,
-            "position_x": 350,
-            "position_y": 350
-
-        }
+            "cost": 160,
+            "position_x": 450,
+            "position_y": 450
 }
+

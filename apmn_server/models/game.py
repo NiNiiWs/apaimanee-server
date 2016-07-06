@@ -58,6 +58,7 @@ class Creep(me.Document):
     hp = me.IntField(required=True)
     hp_regen = me.FloatField(required=True)
     mana = me.IntField(required=True)
+    mana_regen = me.FloatField(required=True)
     armor = me.IntField(required=True)
     magic_resis = me.IntField(required=True)
     move_speed = me.IntField(required=True)

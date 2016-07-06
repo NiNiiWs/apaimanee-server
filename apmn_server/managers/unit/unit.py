@@ -1,29 +1,37 @@
 import uuid
+from apmn_server import models
 class Unit:
-    def __init__(self,name= "",
-                max_hp = 0,
-                max_mana = 0,
-                damage = 0,
-                armor = 0,
+    def __init__(self,
+                data_unit,
                 take_damaged = False,
                 buff_status = [""],
                 position_x = 0,
                 position_y = 0,
-                unit_range = 0
+                unit_range = 20,
+                id_controller = "system" #id_controller owner of unit for controll unit
                 ):
         self.id = str(uuid.uuid4())
-        self.max_hp = max_hp
-        self.current_hp = max_hp
-        self.max_mana = max_mana
-        self.damage = damage
-        self.armor = armor
-        self.alive = True
+        self.data = None
+        self.data_unit = data_unit
+        self.name = self.data_unit.name
+        self.max_hp = self.data_unit.hp
+        self.current_hp = self.max_hp
+        self.hp_regen = self.data_unit.hp_regen
+        self.max_mana = self.data_unit.mana
+        self.current_mana = self.max_mana
+        self.mana_regen = self.data_unit.mana_regen
+        self.damage = self.data_unit.damage
+        self.armor = self.data_unit.armor
+
         self.take_damaged = take_damaged
+        self.buff_status =buff_status
         self.pos_x = position_x
         self.pos_y = position_y
         self.range = unit_range
+        self.id_controller = id_controller
+        self.alive = True
 
-    def get_hp(self):
+    def get_current_hp(self):
         return self.current_hp
 
     def get_max_hp(self):
@@ -53,9 +61,13 @@ class Unit:
     def regend_mana(self, mana_regend = 0):
         regend_mana += mana_regend
 
-    def reduce__hp(self,hp):
+    def reduce_hp(self,hp):
         if self.take_damaged:
             self.current_hp = self.current_hp - hp
+
+    def reduce_mana(self,mana):
+        if self.mana >= 0:
+            self.mana = self.mana - mana
 
     def get_position(self):
         position = {"x":self.pos_x,"y":self.pos_y}

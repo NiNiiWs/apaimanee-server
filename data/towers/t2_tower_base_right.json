@@ -1,9 +1,6 @@
 {
-    "tower_team1":
 
-{
-            "name": "base_right",
-            "position": "base_right",
+            "name": "t2_tower_base_right",
             "hp": 3000,
             "mana":0,
             "hp_regen":0,
@@ -16,6 +13,4 @@
             "cost": 160,
             "position_x": 350,
             "position_y": 350
-        }
-
 }

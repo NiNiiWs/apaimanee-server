@@ -1,8 +1,5 @@
 {
-	"tower_team2":
-	{
-            "name": "tower_mid_level2",
-            "position": "mid_lvl2",
+            "name": "t2_tower_mid_level2",
             "hp": 3000,
             "mana":0,
             "hp_regen":0,
@@ -15,5 +12,4 @@
             "cost": 160,
             "position_x": 350,
             "position_y": 350
-        }
 }

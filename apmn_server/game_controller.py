@@ -94,6 +94,7 @@ class GameStatusController(threading.Thread):
 
     def run(self):
         while self._running:
+
             time.sleep(self._sleep_time)
 
     def stop(self):

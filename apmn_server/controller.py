@@ -6,7 +6,7 @@ from . import game_controller
 class ApaimaneeController:
     def __init__(self, mqtt_client):
         self.mqtt_client = mqtt_client
-
+        #self.api = managers.api_game
         self.user = managers.User(self.mqtt_client)
         self.room = managers.Room(self.mqtt_client)
 
@@ -23,7 +23,9 @@ class ApaimaneeController:
         self.room.rooms[test_room_id] = game
         hero = models.Hero.objects(name='Sinsamut').first()
         game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
-        print(game.game_space.heros)
+        game.game_space.create_creep()
+        #game.game_space.load_unit()
+        #game.game_space.get_players_in_team("team1")
 
 
     def stop(self):
@@ -37,3 +39,6 @@ class ApaimaneeController:
 
     def create_room(self, payload):
         print('new_create_room', payload)
+
+    def get_room(self):
+        return self.room

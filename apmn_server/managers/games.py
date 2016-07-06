@@ -14,12 +14,12 @@ class GameUnit:
     def to_data_dict(self):
         return vars(self)
 
-#class GameSpace:
-#    def __init__(self):
-#        self.heros = {}
+class GameSpace:
+    def __init__(self):
+        self.heros = {}
 
- #   def to_data_dict(self):
- #       return vars(self)
+    def to_data_dict(self):
+        return vars(self)
 
 
 class Player:
@@ -53,7 +53,7 @@ class ApaimaneeGame(threading.Thread):
         self.room_id = room_id
         self.room_name = room_name
         self.players = []
-        self.game_space = BattleArena(self.players)
+        self.game_space = BattleArena(self.players)#GameSpace()
         self.owner=owner
 
     def run(self):
@@ -78,7 +78,7 @@ class ApaimaneeGame(threading.Thread):
 
     def initial(self, request):
         player = request['player']
-
+        self.game_space.load_unit()
         args = dict(players=self.players, player=player, game_space=self.game_space)
         response = GameResponse(method='initial_game',
                 args=args,

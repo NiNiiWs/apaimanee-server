@@ -5,6 +5,7 @@
         "hp": 200,
         "hp_regen": 0,
         "mana": 0,
+        "mana_regen": 0,
         "armor": 10,
         "magic_resis": 0,
         "move_speed": 100,
