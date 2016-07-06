@@ -20,6 +20,7 @@ class Creep(Unit):
         distance = math.sqrt(math.pow((self.pos_y-self.pos_y),2)+
                              math.pow((self.pos_x-pos_x),2)
                             )
+
         rad = (pos_y-self.pos_y)/(pos_x-self.pos_x)
         degree = math.atan(rad)
         forge_x = self.move_speed * math.cos(degree)
@@ -31,3 +32,24 @@ class Creep(Unit):
 
     def attack(self):
         pass
+
+    def to_data_dict(self):
+        result = dict(id=self.id,
+                data=self.data,
+                name=self.name,
+                max_hp=self.max_hp,
+                current_hp=self.current_hp,
+                hp_regen=self.hp_regen,
+                max_mana=self.max_mana,
+                current_mana=self.current_mana,
+                mana_regen=self.mana_regen,
+                damage=self.damage,
+                armor=self.armor,
+                take_damaged=self.take_damaged,
+                buff_status=self.buff_status,
+                pos_x=self.pos_x,
+                pos_y=self.pos_y,
+                range=self.range,
+                id_controller=self.id_controller,
+                alive=self.alive,
+                move_speed=self.move_speed)
