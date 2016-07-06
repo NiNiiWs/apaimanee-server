@@ -1,5 +1,6 @@
 from .unit.hero import Hero
-#from .unit.building import Building
+from .unit.tower import Tower
+from .unit.building import Building
 from .unit.creep import Creep
 from apmn_server import models
 from .scoreboard import ScoreBoard
@@ -16,6 +17,8 @@ class BattleArena:
 
         self.hero_team1 = {}
         self.hero_team2 = {}
+        self.tower_team1 ={}
+        self.tower_team2 = {}
         self.creep_team1 = {}
         self.creep_team2 = {}
         self.nature_creep ={}
@@ -43,6 +46,23 @@ class BattleArena:
 
             elif player.team == "team2":
                 self.hero_team2[player.id] = Hero(self.heros[player.id])
+        tower_position =[
+                    "base_left","base_right",
+                    "bot_level1","bot_level2","bot_level3",
+                    "mid_level1","mid_level2","mid_level3",
+                    "top_level1","top_level2","top_level3"
+                  ]
+        if len(self.tower_team1) == 0:
+            print("load Tower")
+            for position in tower_position:
+                t1_tw = models.Tower.objects(name = "t1_tower_"+position).first()
+                t2_tw = models.Tower.objects(name = "t2_tower_"+position).first()
+                t1_tw_data = games.GameUnit(**dict(t1_tw.to_mongo()))
+                t2_tw_data = games.GameUnit(**dict(t2_tw.to_mongo()))
+                tw1 = Tower(t1_tw_data)
+                #tw2 = Building(t2_tw_data)
+                #self.tower_team1[tw1.id] = tw1
+                #self.tower_team2[tw2.id] = tw2
  #       self.scoreboard.update()
 
         #self.unit_list.append()

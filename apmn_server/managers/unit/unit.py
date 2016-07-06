@@ -10,8 +10,8 @@ class Unit:
                 unit_range = 20,
                 id_controller = "system" #id_controller owner of unit for controll unit
                 ):
+
         self.id = str(uuid.uuid4())
-        self.data = None
         self.data_unit = data_unit
         self.name = self.data_unit.name
         self.max_hp = self.data_unit.hp
