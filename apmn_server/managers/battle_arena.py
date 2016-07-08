@@ -13,7 +13,6 @@ class BattleArena:
         self.size = size_x
         self.size = size_y
         self.heros ={}
-        self.unit_list = []
 
         self.hero_team1 = {}
         self.hero_team2 = {}
@@ -25,9 +24,15 @@ class BattleArena:
         self.scoreboard = ScoreBoard(self.hero_team1,self.hero_team2)
 
     def to_data_dict(self):
-        battle_arena_data = dict(players = self.players,
-                                 heros = self.heros,
-                                 unit_list = self.unit_list
+        dict_hero_team1 = {}
+        battle_arena_data = dict(#players = self.players,
+                                 #heros = self.heros,
+                                 hero_team1 = self.hero_team1,
+                                 hero_team2 = self.hero_team2,
+                                 tower_team1 = self.tower_team1,
+                                 tower_team2 = self.tower_team2,
+                                 creep_team1 = self.creep_team1,
+                                 creep_team2 = self.creep_team2
                             )
         return battle_arena_data
 
@@ -43,7 +48,7 @@ class BattleArena:
         for player in self.players:
             if player.team == "team1":
                 self.hero_team1[player.id] = Hero(self.heros[player.id])
-
+                print(self.hero_team1)
             elif player.team == "team2":
                 self.hero_team2[player.id] = Hero(self.heros[player.id])
         tower_position =[
@@ -60,9 +65,9 @@ class BattleArena:
                 t1_tw_data = games.GameUnit(**dict(t1_tw.to_mongo()))
                 t2_tw_data = games.GameUnit(**dict(t2_tw.to_mongo()))
                 tw1 = Tower(t1_tw_data)
-                #tw2 = Building(t2_tw_data)
-                #self.tower_team1[tw1.id] = tw1
-                #self.tower_team2[tw2.id] = tw2
+                tw2 = Tower(t2_tw_data)
+                self.tower_team1[tw1.id] = tw1
+                self.tower_team2[tw2.id] = tw2
  #       self.scoreboard.update()
 
         #self.unit_list.append()

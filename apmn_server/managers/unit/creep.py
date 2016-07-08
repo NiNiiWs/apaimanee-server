@@ -35,7 +35,6 @@ class Creep(Unit):
 
     def to_data_dict(self):
         result = dict(id=self.id,
-                data=self.data,
                 name=self.name,
                 max_hp=self.max_hp,
                 current_hp=self.current_hp,
@@ -53,3 +52,4 @@ class Creep(Unit):
                 id_controller=self.id_controller,
                 alive=self.alive,
                 move_speed=self.move_speed)
+        return result

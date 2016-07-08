@@ -97,7 +97,6 @@ class Hero(Unit):
                 buff_status=self.buff_status,
                 id_controller=self.id_controller,
                 id=self.id,
-                data=self.data,
                 name=self.name,
                 max_hp=self.max_hp,
                 current_hp=self.current_hp,
@@ -127,3 +126,4 @@ class Hero(Unit):
                 move_status=self.move_status,
                 act_status=self.act_status,
                 time_to_born=self.time_to_born)
+        return result
