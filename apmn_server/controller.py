@@ -24,6 +24,7 @@ class ApaimaneeController:
         hero = models.Hero.objects(name='Sinsamut').first()
         game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
         game.game_space.create_creep()
+        game.start()
 #        game.game_space.load_unit()
         #game.game_space.get_players_in_team("team1")
 

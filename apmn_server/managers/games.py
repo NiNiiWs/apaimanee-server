@@ -58,7 +58,7 @@ class ApaimaneeGame(threading.Thread):
 
     def run(self):
         while self.status != 'stop':
-            print('game sleep')
+            #print(self.status)
             time.sleep(1)
 
     def update(self, request):
@@ -74,6 +74,7 @@ class ApaimaneeGame(threading.Thread):
             return
 
         response = GameResponse(method='start_game', qos=1)
+        self.status = 'play'
         return response
 
     def initial(self, request):

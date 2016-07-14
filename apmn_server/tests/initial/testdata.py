@@ -19,7 +19,7 @@ class DataHeroTest():
     def test_load(self):
         d = None
         if len(sys.argv) == 1:
-            d = DataHero('.')
+            d = DataHero('../../..')
         else:
             d = DataHero(sys.argv[1])
 
@@ -63,9 +63,9 @@ class DataTowerTest():
 
 
 if __name__ == '__main__':
-#    data_hero_test = DataHeroTest()
-#    data_creep_test = DataCreepTest()
+    data_hero_test = DataHeroTest()
+    data_creep_test = DataCreepTest()
     data_tower_test = DataTowerTest()
-#    data_hero_test.test_load()
-#    data_creep_test.test_load()
+    data_hero_test.test_load()
+    data_creep_test.test_load()
     data_tower_test.test_load()
