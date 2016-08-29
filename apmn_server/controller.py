@@ -12,18 +12,16 @@ class ApaimaneeController:
 
         self.game_controller = game_controller.GameStatusController(self.mqtt_client, self.room)
         self.game_controller.start()
-
         # comment if release
         from .managers.rooms import ApaimaneeGame, Player, GameUnit
         from apmn_server import models
         test_room_id = 'test_room_id'
         u = models.User.objects(username='test').first()
-        game = ApaimaneeGame(test_room_id, 'test_room_name', u)
+        game = ApaimaneeGame(test_room_id,'test_room_name',u,self.game_controller)
         game.players.append(Player('test_client_id', u, 'test_token'))
         self.room.rooms[test_room_id] = game
         hero = models.Hero.objects(name='Sinsamut').first()
         game.game_space.heros[str(u.id)] = GameUnit(**dict(hero.to_mongo()))
-        game.game_space.create_creep()
         game.start()
 #        game.game_space.load_unit()
         #game.game_space.get_players_in_team("team1")

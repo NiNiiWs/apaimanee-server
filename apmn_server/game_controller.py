@@ -6,7 +6,6 @@ import datetime
 import logging
 
 from .managers.base import ComplexEncoder
-from .managers.battle_arena import BattleArena
 logger = logging.getLogger('apmn')
 
 class GameStatusController(threading.Thread):
@@ -50,6 +49,9 @@ class GameStatusController(threading.Thread):
         args = game_msg['args']
 
         request = dict(game_msg=game_msg, args=args, player=player, client_id=client_id)
+        print("////////request///////////")
+        print(request)
+        print("///////////////////")
         response = dict()
 
         func = None
@@ -58,11 +60,13 @@ class GameStatusController(threading.Thread):
         except:
             print('can not find method:', method)
             return
-
         response = func(request)
         if response is None:
             return
         # response message
+        print("////////response/////////")
+        print(response.args)
+        print("///////////////////")
         if response.response_type == 'owner':
             self.response(response, client_id, game)
         elif response.response_type == 'other':
@@ -80,14 +84,13 @@ class GameStatusController(threading.Thread):
         for player in game.players:
             client_id = player.client_id
             self.response(response, client_id, game)
-            print(player.id)
 
     def response(self, response, client_id, game):
         qos = response.qos
         response.reponse_date = datetime.datetime.now()
         response_json = json.dumps(vars(response), cls=ComplexEncoder)
         self.mqtt_client.publish(self.game_topic_synchonize(client_id, game.room_id), response_json, qos)
-        print('publish to',client_id, response_json)
+        #print('publish to',client_id, response_json)
 
     def game_topic_synchonize(self, client_id, room_id):
         return 'apaimanee/clients/{}/rooms/{}/synchronize'.format(client_id, room_id)

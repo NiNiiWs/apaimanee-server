@@ -2,7 +2,6 @@ import uuid
 import datetime
 import time
 import json
-
 import threading
 
 from .battle_arena import BattleArena
@@ -47,7 +46,7 @@ class GameResponse:
         self.qos = qos
 
 class ApaimaneeGame(threading.Thread):
-    def __init__(self, room_id, room_name, owner):
+    def __init__(self, room_id, room_name, owner,game_controller):
         super().__init__()
         self.status = 'wait'
         self.room_id = room_id
@@ -55,10 +54,22 @@ class ApaimaneeGame(threading.Thread):
         self.players = []
         self.game_space = BattleArena(self.players)#GameSpace()
         self.owner=owner
+        self.ready_time = None
+        self.game_controller = game_controller
 
     def run(self):
         while self.status != 'stop':
-            #print(self.status)
+            if self.status == 'play':
+                diff_time = datetime.datetime.now() - self.ready_time
+                print(diff_time.seconds)
+                if diff_time.seconds % 15 == 0 and diff_time.seconds > 0:
+                    self.game_space.create_creep()
+                    print('creat_creep')
+                    self.game_controller.response_all(self.update_game(),self)
+                for creep_id in self.game_space.creep_team1:
+                    creep = self.game_space.creep_team1[creep_id]
+                    creep.move(500,500)
+                    print( "{0} {1} ".format(creep.pos_x,creep.pos_y))
             time.sleep(1)
 
     def update(self, request):
@@ -67,14 +78,22 @@ class ApaimaneeGame(threading.Thread):
     def ready(self, request):
         player = request['player']
         player.ready = True
-
         player_ready_count = len([p for p in self.players if p.ready])
         print("ready count:", player_ready_count)
+        self.status = 'play'
+        self.ready_time = datetime.datetime.now()
         if player_ready_count != len(self.players):
             return
 
         response = GameResponse(method='start_game', qos=1)
-        self.status = 'play'
+        return response
+
+    def update_game(self):
+        args = dict(game_space=self.game_space)
+        response = GameResponse(method='update_game',
+                args= args,
+                response_type='owner',
+                qos=1)
         return response
 
     def initial(self, request):

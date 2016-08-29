@@ -60,6 +60,3 @@ class RPCServer:
             payload['status'] = 'fail'
 
         return self.rpc_response(payload, payload['client_id'])
-
-
-

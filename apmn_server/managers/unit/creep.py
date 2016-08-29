@@ -12,6 +12,7 @@ class Creep(Unit):
                          )
         self.move_speed = data_unit.move_speed
         self.sensor ={}
+        self.can_move = False
 
     def change_controller(self,id_controller):
         self.id_controller = id_controller
@@ -23,12 +24,14 @@ class Creep(Unit):
 
         rad = (pos_y-self.pos_y)/(pos_x-self.pos_x)
         degree = math.atan(rad)
-        forge_x = self.move_speed * math.cos(degree)
-        forge_y = self.move_speed * math.sin(degree)
-        if self.pos_x <= pos_x-10 and self.pos_x >= pos_x+10:
-            self.pos_x += forge_x
-        if self.pos_y <= pos_y-10 and self.pos_y >= pos_y+10:
-            self.pos_y += forge_y
+        force_x = self.move_speed * math.cos(degree)
+        force_y = self.move_speed * math.sin(degree)
+        force_x = force_x/30
+        force_y = force_y/30
+        if abs(self.pos_x)-pos_x < 0.001:
+            self.pos_x += force_x
+        if  abs(self.pos_y)-pos_y < 0.001:
+            self.pos_y += force_y
 
     def attack(self):
         pass

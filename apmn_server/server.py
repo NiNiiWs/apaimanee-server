@@ -64,6 +64,7 @@ class ApaimaneeServer:
     def register_callback(self):
         self.mqtt_client.message_callback_add('apaimanee/clients/request', self.rpc_server.rpc_request)
         self.mqtt_client.message_callback_add('apaimanee/clients/+/rooms/+/update', self.controller.game_controller.on_game_message)
+       #self.mqtt_client.message_callback_add('apaimanee/clients/+/rooms/api')
         self.mqtt_client.message_callback_add('apaimanee/hello', callbacks.hello)
         self.mqtt_client.message_callback_add('apaimanee/status', callbacks.status)
 
