@@ -1,4 +1,4 @@
-from . import sensor
+from . import Sensor
 import math
 class NearSenSor(SenSor):
 

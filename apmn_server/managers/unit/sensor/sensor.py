@@ -1,4 +1,4 @@
-class sensor:
+class Sensor:
     def __init__(self, unit, unit_list):
         self.unit = unit
         self.unit_list = unit_list
